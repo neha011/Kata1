@@ -17,4 +17,13 @@ public class TestExecutor1 {
 		assertEquals(4, case3);
 	}
 
+	@Test
+	public void NewLineTestCase() {
+		StringCalculator cal = new StringCalculator();
+		int case4 = cal.Add("1\n2,3,\n\n\n\n\n\n\n4");
+		assertEquals(10, case4);
+		int case5 = cal.Add("1\n\n2,3,4\n5");
+		assertEquals(15, case5);
+	}
+
 }

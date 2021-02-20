@@ -16,15 +16,19 @@ public class StringCalculator {
 	}
 
 	private int calculateSum(String num) {
+		// Case 3 : allow newLine to separate chars.
+		num = num.replace("\n", ",");
 		// Case 1 : Logic for breaking string into numbers and calculation of Sum.
 		// Case 2 : -ve limit is given to eliminate size constraint and handle unknown
 		// amt. of numbers.
 		String[] arrOfStr = num.split(",", -1);
 		int sum = 0;
 		for (String strNum : arrOfStr) {
-			sum = sum + Integer.parseInt(strNum);
+			if (!strNum.isEmpty()) {
+				strNum.trim();
+				sum = sum + Integer.parseInt(strNum);
+			}
 		}
 		return sum;
-
 	}
 }
