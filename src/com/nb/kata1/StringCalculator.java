@@ -47,8 +47,13 @@ public class StringCalculator {
 			if (!strNum.isEmpty() && strNum.contains("-")) {
 				negativelist.add(strNum);
 				hasnegative = true;
-			} else if (!strNum.isEmpty() && strNum.matches("\\d")) {
-				sum = sum + Integer.parseInt(strNum);
+			} else if (!strNum.isEmpty() && strNum.matches("[0-9]*")) {
+				int convertNum = Integer.parseInt(strNum);
+				if(convertNum <= 1000) {
+				sum = sum + convertNum;
+				}else {
+				 //IgnoreCode
+				}
 
 			}
 		}
