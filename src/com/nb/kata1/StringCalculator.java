@@ -7,8 +7,9 @@ import java.util.regex.Pattern;
 
 public class StringCalculator {
 
+	static int count = 0;
 	public int Add(String numbers) throws Exception {
-
+        count++;
 		// Create Temp variable to process Client Provided String Data.
 		String num = numbers;
 		// CASE 1: When String is empty.
@@ -71,5 +72,8 @@ public class StringCalculator {
 		} else
 			return null;
 
+	}
+	public int GetCalledCount() {
+		return count;
 	}
 }
