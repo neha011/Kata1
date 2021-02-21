@@ -60,6 +60,12 @@ public class TestExecutor1 {
 	}
 
 	@Test
+	public void GreaterThan_1000() throws Exception {
+		StringCalculator cal = new StringCalculator();
+		int case10 = cal.Add("1,23,1002");
+		AssertJUnit.assertEquals(24,case10);
+	}
+	@Test
 	public void DummyFailingTest() throws Exception {
 		StringCalculator cal = new StringCalculator();
 		int case9 = cal.Add("abcd");
@@ -70,6 +76,6 @@ public class TestExecutor1 {
 	public void ZCountAdd() {
 		StringCalculator cal = new StringCalculator();
 		int actuatcount = cal.GetCalledCount();
-		AssertJUnit.assertEquals(9, actuatcount);
+		AssertJUnit.assertEquals(10, actuatcount);
 	}
 }
