@@ -8,8 +8,9 @@ import java.util.regex.Pattern;
 public class StringCalculator {
 
 	static int count = 0;
+
 	public int Add(String numbers) throws Exception {
-        count++;
+		count++;
 		// Create Temp variable to process Client Provided String Data.
 		String num = numbers;
 		// CASE 1: When String is empty.
@@ -35,10 +36,22 @@ public class StringCalculator {
 			arrOfStr = num.split(",|\n", -1);
 
 		} else {
+			// To get list of multiple delimiters
+			List<String> listdelim = new ArrayList<String>();
+			for (int i = 0; i <= num.length() - 1; i++) {
+				if (num.charAt(i) == '[') {
+					String customdelimiter = FindDelimiter(num.substring(i));
+					listdelim.add(customdelimiter);
+				}
+
+			}
+
 			// Support different delimiters - “//[delimiter]\n[numbers…]”
-			String customdelimiter = FindDelimiter(num);
-			String Temp = num.replace(customdelimiter, ",");
-			arrOfStr = Temp.split(",|\n", -1);
+			for (int j = 0; j < listdelim.size(); j++) {
+				num = num.replace(listdelim.get(j), ",");
+			}
+
+			arrOfStr = num.split(",|\n|[|]", -1);
 		}
 		// calculating sum of numbers obtained after recognizing the delimiters.
 		boolean hasnegative = false;
@@ -49,10 +62,10 @@ public class StringCalculator {
 				hasnegative = true;
 			} else if (!strNum.isEmpty() && strNum.matches("[0-9]*")) {
 				int convertNum = Integer.parseInt(strNum);
-				if(convertNum <= 1000) {
-				sum = sum + convertNum;
-				}else {
-				 //IgnoreCode
+				if (convertNum <= 1000) {
+					sum = sum + convertNum;
+				} else {
+					// IgnoreCode
 				}
 
 			}
@@ -66,7 +79,7 @@ public class StringCalculator {
 
 	public String FindDelimiter(String num) {
 
-		Pattern pattern = Pattern.compile("//(.*?)\n", Pattern.CASE_INSENSITIVE);
+		Pattern pattern = Pattern.compile("\\[(.*?)]", Pattern.CASE_INSENSITIVE);
 		Matcher matcher = pattern.matcher(num);
 		boolean matchfound = matcher.find();
 		String delimiter = null;
@@ -78,6 +91,7 @@ public class StringCalculator {
 			return null;
 
 	}
+
 	public int GetCalledCount() {
 		return count;
 	}
