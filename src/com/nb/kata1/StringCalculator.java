@@ -1,5 +1,8 @@
 package com.nb.kata1;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class StringCalculator {
 
 	public int Add(String numbers) {
@@ -16,19 +19,45 @@ public class StringCalculator {
 	}
 
 	private int calculateSum(String num) {
-		// Case 3 : allow newLine to separate chars.
-		num = num.replace("\n", ",");
-		// Case 1 : Logic for breaking string into numbers and calculation of Sum.
-		// Case 2 : -ve limit is given to eliminate size constraint and handle unknown
-		// amt. of numbers.
-		String[] arrOfStr = num.split(",", -1);
+		String[] arrOfStr = null;
 		int sum = 0;
+
+		if (!num.startsWith("//")) {
+			/*
+			 * Logic for breaking string into numbers. When delimier is , OR \n . Negative
+			 * limit is given to eliminate size constraint and handle unknown amount of
+			 * numbers.
+			 */
+			arrOfStr = num.split(",|\n", -1);
+
+		} else {
+			// Support different delimiters - “//[delimiter]\n[numbers…]”
+			String customdelimiter = FindDelimiter(num);
+			String Temp = num.replace(customdelimiter, ",");
+			arrOfStr = Temp.split(",|\n", -1);
+		}
+		// calculating sum of numbers obtained after recognizing the delimiters.
 		for (String strNum : arrOfStr) {
-			if (!strNum.isEmpty()) {
-				strNum.trim();
+			if (!strNum.isEmpty() && strNum.matches("\\d")) {
 				sum = sum + Integer.parseInt(strNum);
 			}
 		}
 		return sum;
+
+	}
+
+	public String FindDelimiter(String num) {
+
+		Pattern pattern = Pattern.compile("//(.*?)\n", Pattern.CASE_INSENSITIVE);
+		Matcher matcher = pattern.matcher(num);
+		boolean matchfound = matcher.find();
+		String delimiter = null;
+		if (matchfound) {
+			delimiter = matcher.group(1);
+
+			return delimiter;
+		} else
+			return null;
+
 	}
 }

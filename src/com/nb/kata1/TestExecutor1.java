@@ -26,4 +26,12 @@ public class TestExecutor1 {
 		assertEquals(15, case5);
 	}
 
+	@Test
+	public void CustomDelimiterTestCase() {
+		StringCalculator cal = new StringCalculator();
+		int case6 = cal.Add("//***\n1***2***3");
+		assertEquals(6, case6);
+
+	}
+
 }
